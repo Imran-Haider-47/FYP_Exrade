@@ -1,0 +1,121 @@
+<html>
+    
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    #image
+    {
+        background-image: url('https://stock.adobe.com/images/racial-love/298200505');
+    }
+    
+    body 
+    {
+      background-image: url('/static/1.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    #tweet
+    {
+        height: 20%;
+        text-align: start;
+        align-content: flex-start;
+    }
+
+    #mybtns
+    {
+        align-content: center;
+        text-align: center;
+        align-items: center;
+    }
+
+    #btnback
+    {
+        align-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    #logo1
+    {
+        background-image: url('/static/4.jpg');
+    }
+
+    #logo2
+    {
+        height: 50px;
+        width: 50px;
+        position: relative;
+    }
+
+#f
+{
+    margin-top: 100px;
+}
+    .container
+    {
+        margin-top: 25px;
+    }
+</style>
+</head>
+
+<body>   
+    <div class="container">
+        <div style="display: flex;">
+            <div style="height: 100px; width: 100px;">
+                <img style="height: 100px; width: 100px;" src="/static/logo.png" alt="logo">
+            </div>
+            <div style="margin-left: 38%;">
+                <h1 style="align-content: center; color: rgb(145, 24, 9);">ExRaDe</h1>
+            </div>
+            <div style="height: 100px; width: 100px; float: left; margin-left: 36%;">
+                <img style="height: 100px; width: 100px;" src="/static/Exrade.png" alt="logo">
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <form id="f" action="{{url_for('predict')}}" method="post">
+                <div class="form-group">
+                    <label style="color: rgb(187, 206, 187);" for="tweet">Tweet:</label><br>
+                    <textarea class="form-control" placeholder="Enter Tweet here" required type="text" id="tweet" name="tweet" ></textarea><br>
+                </div>
+                
+                <div id="mybtns">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </div>
+            </form> 
+    
+
+            <div  id="btnback">
+                <form action = "{{url_for('home')}}">
+                    <button type="submit" class="btn btn-primary mt-2" onclick="{{url_for('home')}}" >BACK</button>
+                </form>
+            </div>
+
+            {% if "R" in prediction %}
+        	<div class="alert alert-danger fade in">
+                <strong id="truecondition">This Tweet contains Racism. </strong> 
+              </div>
+              
+            {% elif "N" in prediction%}
+            
+            <div class="alert alert-success">
+                <strong id="falsecondition">This Tweet does not contain Racism. </strong> 
+              </div>
+
+            {% elif " " in prediction%}
+            <div class="alert alert-success alert-dismissible fade show">
+                <strong id="falsecondition">This Tweet does not contain Racism. </strong> 
+            </div>
+            {% endif %}
+        </div> 
+    </div>
+</body>
+</html>
